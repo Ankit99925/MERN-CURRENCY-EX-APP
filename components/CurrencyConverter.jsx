@@ -10,7 +10,7 @@ const CurrencyConverter = () => {
 
   const convertHandler = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/api/convert", {
+      const response = await axios.post("https://mern-currency-ex-app.onrender.com/api/convert", {
         amount: amountInput.current.value,
         sourceCurrency: fromCurrency,
         targetCurrency: toCurrency,
