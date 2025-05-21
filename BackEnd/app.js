@@ -1,5 +1,4 @@
-const ENV = process.env.NODE_ENV || "production";
-require("dotenv").config({ path: `.env.${ENV}` });
+require("dotenv").config();
 
 // External Module
 
@@ -20,7 +19,7 @@ app.use(express.json());
 app.use("/api", exchangeRouter);
 app.use(errorController.get404);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3005;
 
 async function init() {
   await exchangeRateService.getRates();

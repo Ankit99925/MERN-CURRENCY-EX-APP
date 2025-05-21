@@ -1,0 +1,36 @@
+services:
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL}
+        
+    container_name: currency-frontend
+    restart: always
+    ports:
+      - "${FRONTEND_PORT:-8081}:80"
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: currency-backend
+    restart: always
+    ports:
+      - "${BACKEND_PORT:-3005}:${PORT:-3005}"
+    environment:
+      - PORT=${PORT:-3005}
+      - EXCHANGE_RATE_API_KEY=${EXCHANGE_RATE_API_KEY}  
+    env_file:
+      - ./.env
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
